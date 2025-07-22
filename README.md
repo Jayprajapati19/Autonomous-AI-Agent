@@ -19,4 +19,18 @@ Built with:
 - 💡 Smart agent behavior powered by LLMs (via Groq + LLaMA)
 - 🖥️ Streamlit interface included — no backend changes required!
 
+ - how to run 
+ python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+
+python emergency_fix.py
+
+python test_setup.py
+
+python main.py
+
+python run_web_app.py
+
+streamlit run streamlit_app.py
+
 ---
