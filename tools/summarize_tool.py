@@ -7,6 +7,7 @@ from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
+GROQ_MODEL = os.getenv('GROQ_MODEL', 'llama-3.1-8b-instant')
 
 def summarize_text(text, max_length=200):
     """
@@ -40,7 +41,7 @@ def summarize_text(text, max_length=200):
                     "content": prompt
                 }
             ],
-            model="llama3-8b-8192",  # Use available Groq model
+            model=GROQ_MODEL,
             max_tokens=max_length * 2,  # Allow some buffer
             temperature=0.3
         )
@@ -147,7 +148,7 @@ def summarize_multiple_texts(texts, max_length=300):
         client = Groq(api_key=os.getenv('GROQ_API_KEY'))
         response = client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
-            model="llama3-8b-8192",
+            model=GROQ_MODEL,
             max_tokens=max_length * 2,
             temperature=0.3
         )

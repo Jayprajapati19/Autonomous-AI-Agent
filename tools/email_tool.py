@@ -68,7 +68,16 @@ def send_email(subject, body, to_email, from_email=None, password=None):
         return f"Email sent successfully to {to_email}!"
         
     except smtplib.SMTPAuthenticationError as e:
-        return f"❌ Authentication failed. Please check your Gmail App Password: {str(e)}"
+        # Provide actionable guidance specifically for Gmail's 535 errors
+        guidance = (
+            "❌ Authentication failed. Gmail requires an App Password when 2‑Step Verification is enabled. "
+            "Do this: 1) Turn on 2‑Step Verification at https://myaccount.google.com/security "
+            "2) Generate an App Password at https://myaccount.google.com/apppasswords "
+            "3) Paste the 16‑character password (no spaces) into EMAIL_PASS in your .env "
+            "4) Ensure EMAIL_USER matches the same Google account. "
+            "If it still fails, visit https://accounts.google.com/DisplayUnlockCaptcha to allow new device access."
+        )
+        return f"{guidance} (Server: {str(e)})"
     except smtplib.SMTPException as e:
         return f"❌ SMTP error: {str(e)}"
     except Exception as e:
